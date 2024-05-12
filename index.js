@@ -25,6 +25,13 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     const foodsCollection = client.db('allFoods').collection('foods');
+    const topFoodCollection = client.db('topFoods').collection('top');
+    app.get('/tops', async (req, res) => {
+      const cursor = topFoodCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get('/foods', async (req, res) => {
       const cursor = foodsCollection.find();
       const result = await cursor.toArray();

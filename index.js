@@ -58,7 +58,7 @@ async function run() {
       res.send(result);
     });
     // update
-    app.get('/myfood/:id', async (req, res) => {
+    app.get('/tops/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await topFoodCollection.findOne(query);

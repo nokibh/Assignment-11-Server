@@ -64,6 +64,24 @@ async function run() {
       const result = await topFoodCollection.findOne(query);
       res.send(result);
     });
+    app.put('/tops/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedFood = req.body;
+      const food = {
+        $set: {
+          food_name: updatedFood.food_name,
+          food_qun: updatedFood.food_qun,
+          category: updatedFood.category,
+          price: updatedFood.price,
+          description: updatedFood.description,
+          food_image: updatedFood.food_image,
+        },
+      };
+      const result = await topFoodCollection.updateOne(filter, food, options);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 });
     console.log(
